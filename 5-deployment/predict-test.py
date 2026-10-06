@@ -1,8 +1,8 @@
 import requests
 
-url = 'http://localhost:9696/predict'
+url = "http://localhost:9696/predict"
 
-customer_id = 'xyz-123'
+customer_id = "xyz-123"
 customer = {
     "gender": "female",
     "seniorcitizen": 0,
@@ -22,14 +22,14 @@ customer = {
     "paymentmethod": "electronic_check",
     "tenure": 24,
     "monthlycharges": 29.85,
-    "totalcharges": (24 * 29.85)
+    "totalcharges": (24 * 29.85),
 }
 
 
 response = requests.post(url, json=customer).json()
 print(response)
 
-if response['churn'] == True:
-    print(f'sending promo email to {customer_id}')
+if response["churn"] == True:
+    print(f"sending promo email to {customer_id}")
 else:
-    print(f'not sending promo email to {customer_id}')
+    print(f"not sending promo email to {customer_id}")

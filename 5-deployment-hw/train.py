@@ -13,7 +13,9 @@ from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 
-DEFAULT_DATA = Path(__file__).resolve().parents[2] / "data" / "course_lead_scoring_2026.csv"
+DEFAULT_DATA = (
+    Path(__file__).resolve().parents[2] / "data" / "course_lead_scoring_2026.csv"
+)
 DEFAULT_MODEL = Path(__file__).resolve().parent / "pipeline.bin"
 
 
@@ -30,11 +32,7 @@ def read_training_rows(
 
     defaults = {}
     for feature in NUMERICAL_FEATURES:
-        values = sorted(
-            float(row[feature])
-            for row in raw_rows
-            if row[feature] != ""
-        )
+        values = sorted(float(row[feature]) for row in raw_rows if row[feature] != "")
         middle = len(values) // 2
         if len(values) % 2:
             defaults[feature] = values[middle]
@@ -91,7 +89,9 @@ def train(data_path: Path, model_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train the ML Zoomcamp 2026 lead model")
+    parser = argparse.ArgumentParser(
+        description="Train the ML Zoomcamp 2026 lead model"
+    )
     parser.add_argument("--data", type=Path, default=DEFAULT_DATA)
     parser.add_argument("--model", type=Path, default=DEFAULT_MODEL)
     args = parser.parse_args()
