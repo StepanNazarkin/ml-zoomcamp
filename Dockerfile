@@ -1,14 +1,14 @@
-FROM python:3.14.4-slim
+FROM python:3.11-slim
 
-RUN pip install pipenv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 WORKDIR /app
 
-COPY ["Pipfile", "Pipfile.lock", "./"]
+COPY pyproject.toml uv.lock ./
 
-RUN pipenv install --system --deploy
+RUN uv sync --system --no-dev
 
-COPY ["5-deployment/predict.py", "5-deployment/model_C=1.0.bin", "./"]
+COPY ["5-deployment/predict.py", "model_C=1.0.bin", "./"]
 
 EXPOSE 9696
 

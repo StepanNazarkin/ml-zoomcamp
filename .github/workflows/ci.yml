@@ -32,4 +32,6 @@ jobs:
 
       - name: Run unit tests
         run: |
-          uv run pytest || { [ $? -eq 5 ] && echo "No tests found, passing gracefully."; }
+          uv run pytest --ignore=5-deployment-hw || { [ $? -eq 5 ] && echo "No tests found, passing gracefully."; }
+
+#trigger

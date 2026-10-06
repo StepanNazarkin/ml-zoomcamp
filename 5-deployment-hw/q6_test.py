@@ -4,7 +4,6 @@ import json
 import sys
 from urllib.request import Request, urlopen
 
-
 url = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:9696/predict"
 client = {
     "lead_source": "organic_search",
