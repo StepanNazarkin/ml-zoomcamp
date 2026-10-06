@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import requests
 
 url = 'http://localhost:9696/predict'
