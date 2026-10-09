@@ -30,3 +30,9 @@ dev = [
     "pytest>=9.1.1",
     "ruff>=0.16.10",
 ]
+
+[tool.ruff]
+include = ["*.py", "*.ipynb"]
+
+[tool.ruff.lint]
+ignore = ["PLE0704"]
