@@ -46,36 +46,40 @@ class HairModel(nn.Module):
 
 
 def evaluation_transform():
-    return transforms.Compose([
-        transforms.Resize(
-            (200, 200),
-            interpolation=transforms.InterpolationMode.BILINEAR,
-        ),
-        transforms.ToTensor(),
-        NORMALIZE,
-    ])
+    return transforms.Compose(
+        [
+            transforms.Resize(
+                (200, 200),
+                interpolation=transforms.InterpolationMode.BILINEAR,
+            ),
+            transforms.ToTensor(),
+            NORMALIZE,
+        ]
+    )
 
 
 def augmented_train_transform():
-    return transforms.Compose([
-        transforms.Resize(
-            (200, 200),
-            interpolation=transforms.InterpolationMode.BILINEAR,
-        ),
-        transforms.RandomRotation(
-            50,
-            interpolation=transforms.InterpolationMode.NEAREST,
-        ),
-        transforms.RandomResizedCrop(
-            200,
-            scale=(0.9, 1.0),
-            ratio=(0.9, 1.1),
-            interpolation=transforms.InterpolationMode.BILINEAR,
-        ),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        NORMALIZE,
-    ])
+    return transforms.Compose(
+        [
+            transforms.Resize(
+                (200, 200),
+                interpolation=transforms.InterpolationMode.BILINEAR,
+            ),
+            transforms.RandomRotation(
+                50,
+                interpolation=transforms.InterpolationMode.NEAREST,
+            ),
+            transforms.RandomResizedCrop(
+                200,
+                scale=(0.9, 1.0),
+                ratio=(0.9, 1.1),
+                interpolation=transforms.InterpolationMode.BILINEAR,
+            ),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            NORMALIZE,
+        ]
+    )
 
 
 def make_loader(dataset, *, shuffle: bool, seed: int | None = None):
@@ -201,15 +205,11 @@ def run(data_dir: Path, output_dir: Path) -> None:
     summary = {
         "output_dir": str(output_dir),
         "parameters": sum(parameter.numel() for parameter in model.parameters()),
-        "baseline_median_train_accuracy": statistics.median(
-            baseline["train_accuracy"]
-        ),
+        "baseline_median_train_accuracy": statistics.median(baseline["train_accuracy"]),
         "baseline_train_loss_std_population": float(
             np.std(baseline["train_loss"], ddof=0)
         ),
-        "augmented_mean_evaluation_loss": statistics.mean(
-            augmented["evaluation_loss"]
-        ),
+        "augmented_mean_evaluation_loss": statistics.mean(augmented["evaluation_loss"]),
         "augmented_last_five_evaluation_accuracy": statistics.mean(
             augmented["evaluation_accuracy"][-5:]
         ),
