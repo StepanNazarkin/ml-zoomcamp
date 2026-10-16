@@ -3,15 +3,13 @@ name = "ml-zoomcamp"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "StepanNazarkin", email = "nazarkinstephan@gmail.com" }
-]
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "flask>=3.1.3",
     "gunicorn>=26.2.0",
     "matplotlib>=3.11.2",
     "numpy>=2.4.6",
+    "onnxruntime>=1.31.0",
     "pandas>=3.0.6",
     "scikit-learn>=1.9.1",
     "seaborn>=0.13.2",
