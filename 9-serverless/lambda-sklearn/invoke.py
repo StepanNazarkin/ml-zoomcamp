@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-lambda_client = boto3.client('lambda', 'eu-north-1',)
+lambda_client = boto3.client(
+    "lambda",
+    "eu-north-1",
+)
 
 customer_data = {
     "customer": {
@@ -27,15 +30,15 @@ customer_data = {
         "paymentmethod": "electronic_check",
         "tenure": 1,
         "monthlycharges": 29.85,
-        "totalcharges": 29.85
+        "totalcharges": 29.85,
     }
 }
 
 response = lambda_client.invoke(
-    FunctionName='churnPrediction',
-    InvocationType='RequestResponse',
-    Payload=json.dumps(customer_data)
+    FunctionName="churnPrediction",
+    InvocationType="RequestResponse",
+    Payload=json.dumps(customer_data),
 )
 
-result = json.loads(response['Payload'].read())
+result = json.loads(response["Payload"].read())
 print(json.dumps(result, indent=2))

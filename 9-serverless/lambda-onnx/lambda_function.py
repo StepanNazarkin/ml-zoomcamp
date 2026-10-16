@@ -16,7 +16,7 @@ def preprocess_pytorch_style(X):
 
     # Convert NHWC → NCHW
     # from (batch, height, width, channels) → (batch, channels, height, width)
-    X = X.transpose(0, 3, 1, 2)  
+    X = X.transpose(0, 3, 1, 2)
 
     # Normalize
     X = (X - mean) / std
@@ -24,16 +24,10 @@ def preprocess_pytorch_style(X):
     return X.astype(np.float32)
 
 
-preprocessor = create_preprocessor(
-    preprocess_pytorch_style,
-    target_size=(224, 224)
-)
+preprocessor = create_preprocessor(preprocess_pytorch_style, target_size=(224, 224))
 
 
-
-session = ort.InferenceSession(
-    model_name, providers=["CPUExecutionProvider"]
-)
+session = ort.InferenceSession(model_name, providers=["CPUExecutionProvider"])
 input_name = session.get_inputs()[0].name
 output_name = session.get_outputs()[0].name
 

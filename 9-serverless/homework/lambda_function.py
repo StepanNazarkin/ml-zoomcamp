@@ -24,6 +24,7 @@ OUTPUT_NAME = session.get_outputs()[0].name
 print("Input:", INPUT_NAME)
 print("Output:", OUTPUT_NAME)
 
+
 def download_image(url: str) -> Image.Image:
     with request.urlopen(url, timeout=30) as response:
         return Image.open(BytesIO(response.read())).convert("RGB")
@@ -36,6 +37,7 @@ def prepare_image(image: Image.Image) -> np.ndarray:
         [0.229, 0.224, 0.225], dtype=np.float32
     )
     return np.transpose(array, (2, 0, 1))[None, ...]
+
 
 def predict_image_url(image_url: str) -> dict[str, object]:
     image = download_image(image_url)
