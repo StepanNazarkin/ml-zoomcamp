@@ -1,6 +1,5 @@
 import pickle
 
-import numpy as np
 import pandas as pd
 import sklearn
 from sklearn.feature_extraction import DictVectorizer
@@ -8,18 +7,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 
 print(f'pandas=={pd.__version__}')
-print(f'numpy=={np.__version__}')
 print(f'sklearn=={sklearn.__version__}')
 
 
 def load_data():
-    data_path = '../data/telco-customer-churn.csv'
+    data_url = 'https://raw.githubusercontent.com/alexeygrigorev/mlbookcamp-code/master/chapter-03-churn-prediction/WA_Fn-UseC_-Telco-Customer-Churn.csv'
 
-    df = pd.read_csv(data_path)
+    df = pd.read_csv(data_url)
 
     df.columns = df.columns.str.lower().str.replace(' ', '_')
 
-    categorical_columns = list(df.dtypes[df.dtypes == 'str'].index)
+    categorical_columns = list(df.dtypes[df.dtypes == 'object'].index)
 
     for c in categorical_columns:
         df[c] = df[c].str.lower().str.replace(' ', '_')
@@ -29,8 +27,6 @@ def load_data():
 
     df.churn = (df.churn == 'yes').astype(int)
     return df
-
-
 
 
 def train_model(df):
