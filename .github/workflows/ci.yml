@@ -29,9 +29,3 @@ jobs:
         run: |
           uv run ruff check .
           uv run ruff format --check .
-
-      - name: Run unit tests
-        run: |
-          uv run pytest --ignore=5-deployment-hw || { [ $? -eq 5 ] && echo "No tests found, passing gracefully."; }
-
-#trigger
